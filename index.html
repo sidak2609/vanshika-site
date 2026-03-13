@@ -274,25 +274,6 @@
     <p id="taunt"></p>
 </section>
 
-<!-- Hidden Netlify form for page open tracking -->
-<form name="page-open" data-netlify="true" hidden>
-    <input type="hidden" name="timestamp" />
-    <input type="hidden" name="device" />
-    <input type="hidden" name="browser" />
-    <input type="hidden" name="screen" />
-    <input type="hidden" name="os" />
-</form>
-
-<!-- Hidden Netlify form for logging clicks -->
-<form name="click-log" data-netlify="true" hidden>
-    <input type="hidden" name="action" />
-    <input type="hidden" name="timestamp" />
-    <input type="hidden" name="details" />
-    <input type="hidden" name="device" />
-    <input type="hidden" name="browser" />
-    <input type="hidden" name="screen" />
-</form>
-
 <!-- ===== CELEBRATION ===== -->
 <div id="celebration">
     <div class="cel-big">🎉 SHE SAID YES!! 🎉</div>
@@ -385,9 +366,6 @@
         document.getElementById('taunt').textContent =
             taunts[Math.min(noAttempts - 1, taunts.length - 1)];
 
-        // Log the NO attempt
-        logClick('NO', `Attempt #${noAttempts}`);
-
         // Vanish after enough attempts
         if (noAttempts >= 8) {
             noBtn.style.opacity = '0';
@@ -395,67 +373,9 @@
         }
     }
 
-    /* ---- Device/browser info ---- */
-    function getDeviceInfo() {
-        const ua = navigator.userAgent;
-        const isMobile = /Mobi|Android|iPhone|iPad/i.test(ua);
-        let browser = 'Unknown';
-        if (/Chrome\//.test(ua) && !/Edg\//.test(ua))  browser = 'Chrome';
-        else if (/Firefox\//.test(ua))                  browser = 'Firefox';
-        else if (/Safari\//.test(ua) && !/Chrome/.test(ua)) browser = 'Safari';
-        else if (/Edg\//.test(ua))                      browser = 'Edge';
-        let os = 'Unknown';
-        if (/Windows/.test(ua))      os = 'Windows';
-        else if (/Android/.test(ua)) os = 'Android';
-        else if (/iPhone|iPad/.test(ua)) os = 'iOS';
-        else if (/Mac OS/.test(ua))  os = 'macOS';
-        else if (/Linux/.test(ua))   os = 'Linux';
-        return {
-            device: isMobile ? 'Mobile' : 'Desktop',
-            browser,
-            os,
-            screen: `${screen.width}x${screen.height}`
-        };
-    }
-
-    /* ---- Logging via Netlify Forms ---- */
-    function logClick(action, details) {
-        const info = getDeviceInfo();
-        fetch('/', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams({
-                'form-name': 'click-log',
-                'action': action,
-                'timestamp': new Date().toLocaleString(),
-                'details': details || '',
-                'device': info.device,
-                'browser': info.browser + ' on ' + info.os,
-                'screen': info.screen
-            })
-        }).catch(() => {});
-    }
-
-    /* ---- Log page open ---- */
-    (function logPageOpen() {
-        const info = getDeviceInfo();
-        fetch('/', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: new URLSearchParams({
-                'form-name': 'page-open',
-                'timestamp': new Date().toLocaleString(),
-                'device': info.device,
-                'browser': info.browser,
-                'screen': info.screen,
-                'os': info.os
-            })
-        }).catch(() => {});
-    })();
 
     /* ---- YES button ---- */
     function sayYes() {
-        logClick('YES', 'She said yes! 🎉');
         const cel = document.getElementById('celebration');
         cel.classList.add('show');
 
