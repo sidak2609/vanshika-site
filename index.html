@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hey Vanshika! 🌸</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: #fff0f5;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* ---- Cherry blossom petals ---- */
+        .petal {
+            position: fixed;
+            top: -20px;
+            background: #ffb7c5;
+            border-radius: 150% 0 150% 0;
+            animation: petalFall linear infinite;
+            opacity: 0.85;
+            pointer-events: none;
+            z-index: 999;
+        }
+        @keyframes petalFall {
+            0%   { top: -20px; transform: rotate(0deg) translateX(0);     opacity: 0.85; }
+            100% { top: 110vh; transform: rotate(540deg) translateX(80px); opacity: 0; }
+        }
+
+        /* ---- Nav dots ---- */
+        .nav-dots {
+            position: fixed; right: 18px; top: 50%;
+            transform: translateY(-50%);
+            z-index: 600; display: flex; flex-direction: column; gap: 10px;
+        }
+        .nav-dot {
+            width: 12px; height: 12px; border-radius: 50%;
+            background: #ffb7c5; cursor: pointer; transition: all 0.3s;
+        }
+        .nav-dot.active { background: #c0394b; transform: scale(1.4); }
+
+        /* ---- Section base ---- */
+        .section {
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            padding: 60px 24px; text-align: center;
+        }
+
+        h1 { font-size: 3rem; color: #c0394b; font-style: italic; margin-bottom: 10px; }
+        h2 { font-size: 2.2rem; color: #c0394b; margin-bottom: 12px; }
+        .desc { color: #777; max-width: 520px; line-height: 1.75; font-size: 1.05rem; }
+
+        /* ---- Section 1 – Landing ---- */
+        #s-landing { background: linear-gradient(135deg, #ffe0ec, #ffd6f0); }
+
+        .torii { font-size: 90px; margin-bottom: 20px; animation: floatY 3s ease-in-out infinite; }
+        @keyframes floatY {
+            0%,100% { transform: translateY(0); }
+            50%      { transform: translateY(-14px); }
+        }
+
+        .scroll-arrow {
+            margin-top: 36px; font-size: 2.2rem; color: #c0394b;
+            cursor: pointer; animation: bounceY 1s ease-in-out infinite;
+        }
+        @keyframes bounceY {
+            0%,100% { transform: translateY(0); }
+            50%      { transform: translateY(8px); }
+        }
+
+        /* ---- Section 2 – Reasons ---- */
+        #s-reasons { background: #fff5f8; }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 18px; max-width: 820px; margin-top: 28px;
+        }
+        .card {
+            background: white; border-radius: 20px; padding: 26px 20px;
+            box-shadow: 0 4px 20px rgba(192,57,75,.1);
+            border: 2px solid #ffe0ec; transition: transform .3s, box-shadow .3s;
+            cursor: default;
+        }
+        .card:hover { transform: scale(1.06) rotate(2deg); box-shadow: 0 8px 28px rgba(192,57,75,.2); }
+        .card .ico { font-size: 2.5rem; margin-bottom: 10px; }
+        .card p { color: #555; font-size: .93rem; line-height: 1.5; }
+
+        /* ---- Section 3 – Japan ---- */
+        #s-japan { background: linear-gradient(135deg, #ffe8f0, #f0e8ff); }
+
+        .japan-card {
+            background: white; border-radius: 28px; padding: 38px 36px;
+            max-width: 600px; box-shadow: 0 8px 32px rgba(192,57,75,.15);
+            margin: 24px 12px; text-align: left; line-height: 1.85; color: #555; font-size: 1.08rem;
+        }
+        .japan-card strong { color: #c0394b; }
+
+        .tags { margin-top: 24px; }
+        .tag {
+            display: inline-block; background: #ffe0ec; color: #c0394b;
+            border-radius: 20px; padding: 5px 14px; margin: 4px; font-size: .88rem;
+        }
+
+        /* ---- Section 4 – The Ask ---- */
+        #s-ask { background: linear-gradient(135deg, #ffd6e0, #ffecf5); position: relative; }
+
+        .question { font-size: 2.4rem; color: #c0394b; font-style: italic; margin-bottom: 14px; }
+
+        .btn-zone {
+            display: flex; align-items: center; justify-content: center;
+            gap: 24px; margin-top: 36px; flex-wrap: wrap;
+        }
+
+        .btn-yes {
+            background: #c0394b; color: white; border: none;
+            padding: 18px 48px; font-size: 1.45rem; border-radius: 50px;
+            cursor: pointer; font-family: Georgia, serif;
+            box-shadow: 0 6px 22px rgba(192,57,75,.45);
+            transition: transform .25s, box-shadow .25s;
+        }
+        .btn-yes:hover { transform: scale(1.1); box-shadow: 0 10px 32px rgba(192,57,75,.65); }
+
+        #btn-no {
+            background: #999; color: white; border: none;
+            padding: 18px 48px; font-size: 1.45rem; border-radius: 50px;
+            cursor: pointer; font-family: Georgia, serif;
+            transition: left .25s ease, top .25s ease, transform .3s, opacity .4s;
+            z-index: 700;
+        }
+
+        #taunt {
+            margin-top: 28px; min-height: 28px;
+            color: #aaa; font-size: .97rem; font-style: italic;
+        }
+
+        /* ---- Celebration overlay ---- */
+        #celebration {
+            display: none; position: fixed; inset: 0;
+            background: rgba(255,220,232,.97); z-index: 9999;
+            flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; padding: 30px;
+        }
+        #celebration.show { display: flex; animation: popIn .5s ease; }
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(.8); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+        .cel-big  { font-size: 3rem;   color: #c0394b; margin-bottom: 16px; }
+        .cel-mid  { font-size: 1.8rem; color: #c0394b; margin-bottom: 10px; }
+        .cel-small{ font-size: 1.1rem; color: #999; }
+        .cel-icons{ margin-top: 36px; font-size: 2.8rem; letter-spacing: 8px; }
+
+        .confetti {
+            position: absolute; border-radius: 50%;
+            animation: confettiFall linear infinite;
+        }
+        @keyframes confettiFall {
+            0%   { top: -10px; opacity: 1; transform: rotate(0deg) translateX(0); }
+            100% { top: 110vh; opacity: 0; transform: rotate(720deg) translateX(60px); }
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.7rem; }
+            .question { font-size: 1.5rem; }
+            .desc { font-size: 0.95rem; }
+            .torii { font-size: 65px; }
+
+            .cards { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .card { padding: 18px 14px; }
+            .card .ico { font-size: 2rem; }
+
+            .japan-card { padding: 24px 20px; font-size: 0.97rem; margin: 16px 8px; }
+
+            .btn-zone { gap: 16px; }
+            .btn-yes, #btn-no { padding: 15px 34px; font-size: 1.2rem; }
+
+            .cel-big  { font-size: 2rem; }
+            .cel-mid  { font-size: 1.3rem; }
+            .cel-small{ font-size: 0.93rem; }
+            .cel-icons{ font-size: 2rem; }
+
+            .nav-dots { right: 10px; }
+        }
+
+        @media (max-width: 380px) {
+            h1 { font-size: 1.7rem; }
+            .question { font-size: 1.3rem; }
+            .cards { grid-template-columns: 1fr; }
+            .btn-yes, #btn-no { padding: 13px 28px; font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Petals -->
+<div id="petals"></div>
+
+<!-- Nav dots -->
+<nav class="nav-dots">
+    <div class="nav-dot active" onclick="goTo('s-landing')"></div>
+    <div class="nav-dot"        onclick="goTo('s-reasons')"></div>
+    <div class="nav-dot"        onclick="goTo('s-japan')"></div>
+    <div class="nav-dot"        onclick="goTo('s-ask')"></div>
+</nav>
+
+<!-- ===== SECTION 1 – Landing ===== -->
+<section class="section" id="s-landing">
+    <div class="torii">⛩️</div>
+    <h1>Hey Vanshika! 🌸</h1>
+    <p class="desc" style="margin-top:8px;">Mitansh has something very important to tell you...</p>
+    <p class="desc" style="margin-top:16px;">
+        He spent <em>way too long</em> making this website.<br>
+        The least you can do is scroll. 👇
+    </p>
+    <div class="scroll-arrow" onclick="goTo('s-reasons')">↓</div>
+</section>
+
+<!-- ===== SECTION 2 – Reasons ===== -->
+<section class="section" id="s-reasons">
+    <h2>Reasons Mitansh thinks you're amazing 🌺</h2>
+    <p class="desc">(He wrote this list at 2am. Please respect the dedication.)</p>
+    <div class="cards">
+        <div class="card"><div class="ico">🌸</div><p>Your love for Japan is the <strong>most aesthetic personality trait</strong> a human can have.</p></div>
+        <div class="card"><div class="ico">✨</div><p>You somehow make everything around you <strong>a little brighter</strong>. Very suspicious.</p></div>
+        <div class="card"><div class="ico">🍓</div><p>Anyone willing to eat strawberries at any hour of the day is <strong>automatically a legend.</strong></p></div>
+        <div class="card"><div class="ico">🎌</div><p>Your Japan obsession is <strong>100% valid</strong> and lowkey contagious. Mitansh looked up flights.</p></div>
+        <div class="card"><div class="ico">😄</div><p>Your smile could <strong>stop traffic.</strong> This is not a metaphor. It's a safety concern.</p></div>
+        <div class="card"><div class="ico">🌙</div><p>You are literally the type of person <strong>anime protagonists</strong> write whole arcs about.</p></div>
+    </div>
+</section>
+
+<!-- ===== SECTION 3 – Japan ===== -->
+<section class="section" id="s-japan">
+    <div style="font-size:4.5rem;margin-bottom:16px;">🗾</div>
+    <h2>A Message From Japan 🗼</h2>
+    <div class="japan-card">
+        Dear Vanshika,<br><br>
+        We heard you love us. We love you too. 🌸<br><br>
+        But here's the thing — even <strong>Tokyo at night</strong>, even <strong>cherry blossoms at full bloom</strong>,
+        even <strong>a fresh bowl of Ichiran ramen</strong>... none of it compares to how much Mitansh thinks about you.<br><br>
+        (Mount Fuji told us to say that. He's very emotional about this.)<br><br>
+        <em>— Japan 🗻</em><br>
+        <em style="font-size:.85rem;color:#aaa;">P.S. — You should say yes. Just saying. The sakura trees agree.</em>
+    </div>
+    <div class="tags">
+        <span class="tag">🍣 Sushi</span>
+        <span class="tag">🌸 Sakura</span>
+        <span class="tag">⛩️ Shrines</span>
+        <span class="tag">🍜 Ramen</span>
+        <span class="tag">🎎 Culture</span>
+        <span class="tag">🗼 Tokyo</span>
+        <span class="tag">🎐 Tanabata</span>
+        <span class="tag">🏯 Castles</span>
+    </div>
+</section>
+
+<!-- ===== SECTION 4 – The Ask ===== -->
+<section class="section" id="s-ask">
+    <div style="font-size:5rem;margin-bottom:16px;">🥺</div>
+    <p class="question">Vanshika... will you go on a date<br>with Mitansh?</p>
+    <p class="desc">(The cherry blossoms are watching. Choose wisely. 🌸)</p>
+
+    <div class="btn-zone">
+        <button class="btn-yes" onclick="sayYes()">Yes! 🌸</button>
+        <button id="btn-no" onmouseenter="runAway()">No 🙅</button>
+    </div>
+
+    <p id="taunt"></p>
+</section>
+
+<!-- Hidden Netlify form for page open tracking -->
+<form name="page-open" data-netlify="true" hidden>
+    <input type="hidden" name="timestamp" />
+    <input type="hidden" name="device" />
+    <input type="hidden" name="browser" />
+    <input type="hidden" name="screen" />
+    <input type="hidden" name="os" />
+</form>
+
+<!-- Hidden Netlify form for logging clicks -->
+<form name="click-log" data-netlify="true" hidden>
+    <input type="hidden" name="action" />
+    <input type="hidden" name="timestamp" />
+    <input type="hidden" name="details" />
+    <input type="hidden" name="device" />
+    <input type="hidden" name="browser" />
+    <input type="hidden" name="screen" />
+</form>
+
+<!-- ===== CELEBRATION ===== -->
+<div id="celebration">
+    <div class="cel-big">🎉 SHE SAID YES!! 🎉</div>
+    <div class="cel-mid">Mitansh is currently doing a victory dance. 💃</div>
+    <div class="cel-small">Mount Fuji literally erupted out of happiness.<br>The cherry blossoms are crying tears of joy. 🌸</div>
+    <div class="cel-icons">🌸 ⛩️ 🎌 🗼 🌸 🎎 🌸</div>
+</div>
+
+<script>
+    /* ---- Falling petals ---- */
+    const petalBox = document.getElementById('petals');
+    for (let i = 0; i < 22; i++) {
+        const p = document.createElement('div');
+        p.className = 'petal';
+        const sz = Math.random() * 10 + 8;
+        p.style.cssText = `
+            left:${Math.random()*100}vw;
+            width:${sz}px; height:${sz}px;
+            animation-duration:${Math.random()*5+5}s;
+            animation-delay:${Math.random()*6}s;
+        `;
+        petalBox.appendChild(p);
+    }
+
+    /* ---- Smooth scroll + nav dots ---- */
+    const sectionIds = ['s-landing','s-reasons','s-japan','s-ask'];
+    const dots = document.querySelectorAll('.nav-dot');
+
+    function goTo(id) {
+        document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    }
+
+    /* ---- NO button run-away logic ---- */
+    let noAttempts = 0;
+    const noBtn = document.getElementById('btn-no');
+
+    // Touch: prevent the click event from also firing (avoids double runAway)
+    noBtn.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        runAway();
+    }, { passive: false });
+    // Desktop fallback click (mouseenter handles hover, click catches keyboard/click)
+    noBtn.addEventListener('click', runAway);
+
+    const taunts = [
+        "Hmm, slippery button... 👀",
+        "Did it just… move? 😂",
+        "lol it's running away from you 🏃‍♂️",
+        "Nice try though! Maybe click YES? 🌸",
+        "The button is feeling shy 🫣",
+        "It's getting smaller btw... 👀",
+        "Vanshika just say yes 🥺",
+        "The 'No' button has LEFT. THE. CHAT. 👋"
+    ];
+
+    window.addEventListener('scroll', () => {
+        let cur = sectionIds[0];
+        sectionIds.forEach(id => {
+            const el = document.getElementById(id);
+            if (window.scrollY >= el.offsetTop - window.innerHeight / 2) cur = id;
+        });
+        dots.forEach((d, i) => d.classList.toggle('active', sectionIds[i] === cur));
+    });
+
+    function runAway() {
+        if (noAttempts >= 8) return;
+
+        // First interaction: switch from inline to fixed so it can fly anywhere
+        if (noAttempts === 0) {
+            noBtn.style.position = 'fixed';
+        }
+
+        noAttempts++;
+
+        const margin = 20;
+        const btnW = noBtn.offsetWidth  || 160;
+        const btnH = noBtn.offsetHeight || 60;
+
+        const newX = Math.random() * (window.innerWidth  - btnW - margin * 2) + margin;
+        const newY = Math.random() * (window.innerHeight - btnH - margin * 2) + margin;
+
+        noBtn.style.left = newX + 'px';
+        noBtn.style.top  = newY + 'px';
+
+        // Shrink it
+        const scale = Math.max(0.25, 1 - noAttempts * 0.09);
+        noBtn.style.transform = `scale(${scale})`;
+
+        // Taunt text
+        document.getElementById('taunt').textContent =
+            taunts[Math.min(noAttempts - 1, taunts.length - 1)];
+
+        // Log the NO attempt
+        logClick('NO', `Attempt #${noAttempts}`);
+
+        // Vanish after enough attempts
+        if (noAttempts >= 8) {
+            noBtn.style.opacity = '0';
+            noBtn.style.pointerEvents = 'none';
+        }
+    }
+
+    /* ---- Device/browser info ---- */
+    function getDeviceInfo() {
+        const ua = navigator.userAgent;
+        const isMobile = /Mobi|Android|iPhone|iPad/i.test(ua);
+        let browser = 'Unknown';
+        if (/Chrome\//.test(ua) && !/Edg\//.test(ua))  browser = 'Chrome';
+        else if (/Firefox\//.test(ua))                  browser = 'Firefox';
+        else if (/Safari\//.test(ua) && !/Chrome/.test(ua)) browser = 'Safari';
+        else if (/Edg\//.test(ua))                      browser = 'Edge';
+        let os = 'Unknown';
+        if (/Windows/.test(ua))      os = 'Windows';
+        else if (/Android/.test(ua)) os = 'Android';
+        else if (/iPhone|iPad/.test(ua)) os = 'iOS';
+        else if (/Mac OS/.test(ua))  os = 'macOS';
+        else if (/Linux/.test(ua))   os = 'Linux';
+        return {
+            device: isMobile ? 'Mobile' : 'Desktop',
+            browser,
+            os,
+            screen: `${screen.width}x${screen.height}`
+        };
+    }
+
+    /* ---- Logging via Netlify Forms ---- */
+    function logClick(action, details) {
+        const info = getDeviceInfo();
+        fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({
+                'form-name': 'click-log',
+                'action': action,
+                'timestamp': new Date().toLocaleString(),
+                'details': details || '',
+                'device': info.device,
+                'browser': info.browser + ' on ' + info.os,
+                'screen': info.screen
+            })
+        }).catch(() => {});
+    }
+
+    /* ---- Log page open ---- */
+    (function logPageOpen() {
+        const info = getDeviceInfo();
+        fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({
+                'form-name': 'page-open',
+                'timestamp': new Date().toLocaleString(),
+                'device': info.device,
+                'browser': info.browser,
+                'screen': info.screen,
+                'os': info.os
+            })
+        }).catch(() => {});
+    })();
+
+    /* ---- YES button ---- */
+    function sayYes() {
+        logClick('YES', 'She said yes! 🎉');
+        const cel = document.getElementById('celebration');
+        cel.classList.add('show');
+
+        const colors = ['#ffb7c5','#ff69b4','#c0394b','#ffd700','#98fb98','#87ceeb','#dda0dd'];
+        for (let i = 0; i < 90; i++) {
+            const c = document.createElement('div');
+            c.className = 'confetti';
+            const sz = Math.random() * 11 + 5;
+            c.style.cssText = `
+                left:${Math.random()*100}vw;
+                width:${sz}px; height:${sz}px;
+                background:${colors[Math.floor(Math.random()*colors.length)]};
+                animation-duration:${Math.random()*2+2}s;
+                animation-delay:${Math.random()*3}s;
+            `;
+            cel.appendChild(c);
+        }
+    }
+</script>
+</body>
+</html>
